@@ -63,7 +63,7 @@ const InterviewList = () => {
     }
   };
 
-  const generateInterviewLink = (interviewId) =>` http://localhost:5173/user-form/${interviewId}`;
+  const generateInterviewLink = (interviewId) =>`https://remoteuser.vercel.app/user-form/${interviewId}`;
 
   const handleCopyLink = (interview) => {
     const link = generateInterviewLink(interview._id);

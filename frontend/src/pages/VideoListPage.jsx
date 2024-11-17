@@ -29,7 +29,7 @@ const VideoListPage = () => {
   useEffect(() => {
     const fetchInterviewQuestions = async () => {
       try {
-        const response = await axios.get(`http://localhost:5002/api/interviews/${interviewId}/questions`);
+        const response = await axios.get(`${process.env.VITE_BE_URL}/interviews/${interviewId}/questions`);
         setQuestions(response.data);
       } catch (err) {
         console.error('Error fetching interview questions:', err);
@@ -69,7 +69,7 @@ const VideoListPage = () => {
 
       try {
         const response = await axios.get(
-          `http://localhost:5002/api/interviews/${interviewId}/users/${selectedUser._id}/question-times`
+          `${process.env.VITE_BE_URL}/interviews/${interviewId}/users/${selectedUser._id}/question-times`
         );
         setQuestionTimes(response.data);
       } catch (error) {
@@ -114,7 +114,7 @@ const VideoListPage = () => {
   // Handle save changes in modal
   const handleSave = async () => {
     try {
-      await axios.put(`http://localhost:5002/api/users/${selectedUser._id}`, {
+      await axios.put(`${process.env.VITE_BE_URL}/users/${selectedUser._id}`, {
         notes,
         status: isPassed ? 'Passed' : 'Failed'
       });

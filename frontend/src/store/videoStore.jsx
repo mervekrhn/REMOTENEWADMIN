@@ -16,7 +16,7 @@ const useVideoStore = create((set) => ({
       }));
 
       // API isteği ile veritabanında alert durumunu güncelleyin
-      await axios.put(`http://localhost:5002/api/users/${userId}/alert`, { alert });
+      await axios.put(`${process.env.VITE_BE_URL}/users/${userId}/alert`, { alert });
       console.log(`Kullanıcı ${userId} için alert durumu başarıyla güncellendi: ${alert}`);
     } catch (error) {
       console.error(`Alert durumu güncellenirken hata oluştu (Kullanıcı ID: ${userId}):`, error);
@@ -30,7 +30,7 @@ const useVideoStore = create((set) => ({
   fetchPersonalFormsByInterview: async (interviewId) => {
     set({ isFetching: true, error: null });
     try {
-      const response = await axios.get(`http://localhost:5002/api/interviews/${interviewId}/personal-forms`);
+      const response = await axios.get(`${process.env.VITE_BE_URL}/interviews/${interviewId}/personal-forms`);
       const personalForms = response.data.userId;
       set({ personalForms, isFetching: false });
     } catch (error) {
@@ -41,7 +41,7 @@ const useVideoStore = create((set) => ({
 
   getVideoUrl: async (videoId) => {
     try {
-      const response = await axios.post('http://localhost:5002/api/upload/video-url', { videoId });
+      const response = await axios.post(`${process.env.VITE_BE_URL}/upload/video-url`, { videoId });
       return response.data.videoUrl;
     } catch (error) {
       console.error('Error fetching video URL:', error);
@@ -53,7 +53,7 @@ const useVideoStore = create((set) => ({
     try {
       // Eğer video ID varsa videoyu sil
       if (videoId) {
-        const deleteVideoUrl = `http://localhost:5002/api/upload/videos/${videoId}`;
+        const deleteVideoUrl = `${process.env.VITE_BE_URL}/upload/videos/${videoId}`;
         console.log("Silinmek istenen videoId:", videoId);
         await axios.delete(deleteVideoUrl);
       } else {
@@ -61,12 +61,12 @@ const useVideoStore = create((set) => ({
       }
 
       // Kullanıcıyı veritabanından sil
-      const deleteUserUrl = `http://localhost:5002/api/users/delete/${userId}`;
+      const deleteUserUrl = `${process.env.VITE_BE_URL}/users/delete/${userId}`;
       console.log("Silinmek istenen userId:", userId);
       await axios.delete(deleteUserUrl);
 
       // Interview'den kullanıcı referansını sil
-      const removeUserFromInterviewUrl = `http://localhost:5002/api/interviews/${interviewId}/remove-user/${userId}`;
+      const removeUserFromInterviewUrl = `${process.env.VITE_BE_URL}/interviews/${interviewId}/remove-user/${userId}`;
       await axios.put(removeUserFromInterviewUrl);
 
       // Kullanıcı ve video başarıyla silindiğinde state güncellemesi yap
@@ -83,7 +83,7 @@ const useVideoStore = create((set) => ({
 
   updateVideoWatchStatus: async (videoId) => {
     try {
-      await axios.put(`http://localhost:5002/api/videos/${videoId}/watch-status`, { status: 'watched' });
+      await axios.put(`${process.env.VITE_BE_URL}/videos/${videoId}/watch-status`, { status: 'watched' });
       set((state) => ({
         personalForms: state.personalForms.map((form) =>
           form.videoId === videoId ? { ...form, watched: true } : form
