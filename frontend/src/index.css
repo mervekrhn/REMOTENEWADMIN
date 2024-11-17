@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Chrome, Safari ve Edge için scroll gizleme */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Firefox için scroll gizleme */
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE ve Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  .user-name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    color: #142147;
+    gap: 5px; /* İsim ve ünlem işareti arasındaki boşluk */
+  }
+  
+  .alert-icon {
+    font-size: 20px; /* Ünlem işareti boyutu */
+    color: red;
+  }
+  
