@@ -30,7 +30,7 @@ const useVideoStore = create((set) => ({
   fetchPersonalFormsByInterview: async (interviewId) => {
     set({ isFetching: true, error: null });
     try {
-      const response = await axios.get(`${process.env.VITE_BE_URL}/interviews/${interviewId}/personal-forms`);
+      const response = await axios.get(`https://remotetech.onrender.com/api/interviews/${interviewId}/personal-forms`);
       const personalForms = response.data.userId;
       set({ personalForms, isFetching: false });
     } catch (error) {
