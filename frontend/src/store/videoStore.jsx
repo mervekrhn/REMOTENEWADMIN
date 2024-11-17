@@ -16,7 +16,7 @@ const useVideoStore = create((set) => ({
       }));
 
       // API isteği ile veritabanında alert durumunu güncelleyin
-      await axios.put(`${process.env.VITE_BE_URL}/users/${userId}/alert`, { alert });
+      await axios.put(`https://remotetech.onrender.com/api/users/${userId}/alert`, { alert });
       console.log(`Kullanıcı ${userId} için alert durumu başarıyla güncellendi: ${alert}`);
     } catch (error) {
       console.error(`Alert durumu güncellenirken hata oluştu (Kullanıcı ID: ${userId}):`, error);
@@ -41,7 +41,7 @@ const useVideoStore = create((set) => ({
 
   getVideoUrl: async (videoId) => {
     try {
-      const response = await axios.post(`${process.env.VITE_BE_URL}/upload/video-url`, { videoId });
+      const response = await axios.post(`https://remotetech.onrender.com/api/upload/video-url`, { videoId });
       return response.data.videoUrl;
     } catch (error) {
       console.error('Error fetching video URL:', error);
@@ -53,7 +53,7 @@ const useVideoStore = create((set) => ({
     try {
       // Eğer video ID varsa videoyu sil
       if (videoId) {
-        const deleteVideoUrl = `${process.env.VITE_BE_URL}/upload/videos/${videoId}`;
+        const deleteVideoUrl = `https://remotetech.onrender.com/api/upload/videos/${videoId}`;
         console.log("Silinmek istenen videoId:", videoId);
         await axios.delete(deleteVideoUrl);
       } else {
@@ -61,12 +61,12 @@ const useVideoStore = create((set) => ({
       }
 
       // Kullanıcıyı veritabanından sil
-      const deleteUserUrl = `${process.env.VITE_BE_URL}/users/delete/${userId}`;
+      const deleteUserUrl = `https://remotetech.onrender.com/api/users/delete/${userId}`;
       console.log("Silinmek istenen userId:", userId);
       await axios.delete(deleteUserUrl);
 
       // Interview'den kullanıcı referansını sil
-      const removeUserFromInterviewUrl = `${process.env.VITE_BE_URL}/interviews/${interviewId}/remove-user/${userId}`;
+      const removeUserFromInterviewUrl = `https://remotetech.onrender.com/api/interviews/${interviewId}/remove-user/${userId}`;
       await axios.put(removeUserFromInterviewUrl);
 
       // Kullanıcı ve video başarıyla silindiğinde state güncellemesi yap
@@ -83,7 +83,7 @@ const useVideoStore = create((set) => ({
 
   updateVideoWatchStatus: async (videoId) => {
     try {
-      await axios.put(`${process.env.VITE_BE_URL}/videos/${videoId}/watch-status`, { status: 'watched' });
+      await axios.put(`https://remotetech.onrender.com/api/videos/${videoId}/watch-status`, { status: 'watched' });
       set((state) => ({
         personalForms: state.personalForms.map((form) =>
           form.videoId === videoId ? { ...form, watched: true } : form
