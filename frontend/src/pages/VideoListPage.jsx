@@ -29,7 +29,7 @@ const VideoListPage = () => {
   useEffect(() => {
     const fetchInterviewQuestions = async () => {
       try {
-        const response = await axios.get(`${process.env.VITE_BE_URL}/interviews/${interviewId}/questions`);
+        const response = await axios.get(`https://remotetech.onrender.com/api/interviews/${interviewId}/questions`);
         setQuestions(response.data);
       } catch (err) {
         console.error('Error fetching interview questions:', err);

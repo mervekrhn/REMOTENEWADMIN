@@ -63,11 +63,8 @@ const InterviewList = () => {
     }
   };
 
-  const generateInterviewLink = (interviewId) => {
-    console.log("Generated Link:", `${import.meta.env.VITE_USER_URL}/user-form/${interviewId}`);
-    return `${import.meta.env.VITE_USER_URL}/user-form/${interviewId}`;
-  };
-  
+  const generateInterviewLink = (interviewId) =>`https://remoteuser.vercel.app/user-form/${interviewId}`;
+
   const handleCopyLink = (interview) => {
     const link = generateInterviewLink(interview._id);
     navigator.clipboard.writeText(link)
