@@ -69,7 +69,7 @@ const VideoListPage = () => {
 
       try {
         const response = await axios.get(
-          `${process.env.VITE_BE_URL}/interviews/${interviewId}/users/${selectedUser._id}/question-times`
+          `https://remotetech.onrender.com/api/interviews/${interviewId}/users/${selectedUser._id}/question-times`
         );
         setQuestionTimes(response.data);
       } catch (error) {
