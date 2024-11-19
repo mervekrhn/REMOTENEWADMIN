@@ -114,7 +114,7 @@ const VideoListPage = () => {
   // Handle save changes in modal
   const handleSave = async () => {
     try {
-      await axios.put(`${process.env.VITE_BE_URL}/users/${selectedUser._id}`, {
+      await axios.put(`https://remotetech.onrender.com/api/users/${selectedUser._id}`, {
         notes,
         status: isPassed ? 'Passed' : 'Failed'
       });
